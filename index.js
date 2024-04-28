@@ -1,20 +1,19 @@
-
-
-
-
-for (var i = 0; i < document.querySelectorAll(".drum").length; i++)
-{
-  document.querySelectorAll(".drum")[i].addEventListener("click", handleClick) 
+for (var i = 0; i < document.querySelectorAll(".drum").length; i++) {
+  document.querySelectorAll(".drum")[i].addEventListener("click", handleClick);
 }
 
-function handleClick()
-{
+document.addEventListener("keydown", function (event) {
+  makeSound(event.key);
+  btnAnimation(event.key);
+});
+
+function handleClick() {
   var innerHtml = this.innerHTML;
   makeSound(innerHtml);
+  btnAnimation(innerHtml);
 }
 
-function makeSound(x)
-{
+function makeSound(x) {
   switch (x) {
     case "w":
       var audio = new Audio("sounds/crash.mp3");
@@ -50,13 +49,13 @@ function makeSound(x)
       audio.play();
       break;
     default:
-      console.log("Error with switch statement.")
+      console.log("Error with switch statement.");
       break;
   }
 }
 
-
-document.addEventListener("keydown", function(event)
+function btnAnimation(btnClass)
 {
-  makeSound(event.key);
-})
+	document.querySelector("." + btnClass).classList.add("pressed")
+	setTimeout( function(){document.querySelector("." + btnClass).classList.remove("pressed")}, 70)
+}
